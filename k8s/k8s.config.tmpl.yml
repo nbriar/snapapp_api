@@ -22,7 +22,7 @@ spec:
           - name: POSTGRES_HOST
             value: 127.0.0.1
           - name: POSTGRES_DB
-            value: text_api
+            value: snapapp_api
           - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:

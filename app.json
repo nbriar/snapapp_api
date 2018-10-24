@@ -1,5 +1,5 @@
 {
-  "name": "text_api",
+  "name": "snapapp_api",
   "stack": "heroku-16",
   "scripts": {
   },

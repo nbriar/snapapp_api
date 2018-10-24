@@ -13,6 +13,6 @@ definitions:
     postgres:
       image: postgres
       environment:
-        POSTGRES_DB: 'text_api_test'
+        POSTGRES_DB: 'snapapp_api_test'
         POSTGRES_USER: 'test_user'
         POSTGRES_PASSWORD: 'test_user_password'

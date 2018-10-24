@@ -10,7 +10,7 @@ services:
       - POSTGRES_HOST=db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=text_api_dev
+      - POSTGRES_DB=snapapp_api_dev
     volumes:
       - .:/usr/src
     ports:
@@ -21,6 +21,6 @@ services:
     image: postgres:10.3-alpine
     environment:
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=text_api_dev
+      - POSTGRES_DB=snapapp_api_dev
     ports:
       - "5432"
