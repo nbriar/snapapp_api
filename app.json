@@ -1,0 +1,19 @@
+{
+  "name": "text_api",
+  "stack": "heroku-16",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {"url": "heroku/ruby"}
+  ]
+}

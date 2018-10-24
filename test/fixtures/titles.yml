@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: titles
+#
+#  id         :bigint(8)        not null, primary key
+#  text       :string
+#  size       :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  text: The First Title of The Test
+  size: 1
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+
+two:
+  text: A Novel Idea
+  size: 2
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>

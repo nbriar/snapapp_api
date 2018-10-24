@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: template_elements
+#
+#  id           :bigint(8)        not null, primary key
+#  element_type :string
+#  ordinal      :integer
+#  template_id  :bigint(8)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_template_elements_on_template_id  (template_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  element_type: Title
+  ordinal: 0
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+
+two:
+  element_type: SubTitle
+  ordinal: 1
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+
+three:
+  element_type: Paragraph
+  ordinal: 3
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>

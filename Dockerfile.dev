@@ -1,0 +1,15 @@
+FROM ruby:2.4.3-alpine3.7
+
+RUN apk update && apk add build-base postgresql-dev
+
+WORKDIR /usr/src
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --binstubs
+
+COPY . .
+
+LABEL maintainer="Nathan Davis <nbriardavis@gmail.com>"
+
+EXPOSE 3000
+CMD /bin/sh -c "./bin/run_dev"

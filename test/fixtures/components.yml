@@ -1,0 +1,38 @@
+# == Schema Information
+#
+# Table name: components
+#
+#  id            :bigint(8)        not null, primary key
+#  app_id        :string
+#  collection_id :integer
+#  element_id    :integer
+#  element_type  :string
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_components_on_app_id_and_name  (app_id,name) UNIQUE
+#  index_components_on_collection_id    (collection_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_id: app1
+  collection_id: 1
+  element_id: 1
+  element_type: Title
+  name: FirstComponent
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+
+two:
+  app_id: app2
+  collection_id: 1
+  element_id: 1
+  element_type: Title
+  name: SecondComponent
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>

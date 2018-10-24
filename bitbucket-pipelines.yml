@@ -1,0 +1,18 @@
+image: nbriar/rails5-alpine
+pipelines:
+  default:
+    - step:
+        script:
+          - bundle install
+          - bundle exec rails test
+        services:
+          - postgres
+
+definitions:
+  services:
+    postgres:
+      image: postgres
+      environment:
+        POSTGRES_DB: 'text_api_test'
+        POSTGRES_USER: 'test_user'
+        POSTGRES_PASSWORD: 'test_user_password'

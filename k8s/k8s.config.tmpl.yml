@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-api
+spec:
+  selector:
+    matchLabels:
+      app: text-api
+  template:
+    metadata:
+      labels:
+        app: text-api
+    spec:
+      containers:
+      - name: text-api
+        image: <IMAGE>
+        ports:
+        - containerPort: 3000
+        env:
+          - name: SECRET_KEY_BASE
+            value: <SECRET_KEY_BASE>
+          - name: POSTGRES_HOST
+            value: 127.0.0.1
+          - name: POSTGRES_DB
+            value: text_api
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql-db-credentials
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql-db-credentials
+                key: password
+
+      # Proxy container to connect to sql instance
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=<DB_INSTANCE_NAME>=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+
+
+
+
+
+
+# echo '
+# kind: Ingress
+# apiVersion: extensions/v1beta1
+# metadata:
+#   name: text-api
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - backend:
+#           serviceName: text-api
+#           servicePort: 80
+# ' | kubectl create -f -

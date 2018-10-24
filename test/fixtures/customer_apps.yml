@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: customer_apps
+#
+#  id              :bigint(8)        not null, primary key
+#  name            :string
+#  slug            :string
+#  auth_account_id :bigint(8)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_customer_apps_on_auth_account_id  (auth_account_id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {
+  slug: 'some-unique-slug'
+}
+# column: value
+#
+two: {}
+# column: value
