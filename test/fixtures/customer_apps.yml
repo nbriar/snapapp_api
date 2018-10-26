@@ -21,7 +21,9 @@
 # below each fixture, per the syntax in the comments below
 #
 one: {
-  slug: 'some-unique-slug'
+  name: 'some app',
+  slug: 'some-unique-slug',
+  auth_account_id: 45555555
 }
 # column: value
 #

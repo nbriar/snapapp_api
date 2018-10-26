@@ -1,4 +1,4 @@
-SnapAppApiSchema = GraphQL::Schema.define do
-  mutation(Types::MutationType)
+class SnapAppApiSchema < GraphQL::Schema
+  mutation Types::MutationType
   query Types::QueryType
 end

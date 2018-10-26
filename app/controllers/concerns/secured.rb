@@ -13,7 +13,7 @@ module Secured
   def authenticate_request!
     payload = auth_token
     @external_user_id = payload[0]["sub"]
-    
+
   rescue JWT::VerificationError, JWT::DecodeError => e
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end
