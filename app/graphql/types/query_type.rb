@@ -8,8 +8,17 @@ module Types
       argument :id, ID, required: true
     end
 
+    field :collection, CollectionType, null: true do
+      description "Find a collection by ID"
+      argument :id, ID, required: true
+    end
+
     def customer_app(id:)
       CustomerApp.find(id)
+    end
+
+    def collection(id:)
+      Collection.find(id)
     end
   end
 end
