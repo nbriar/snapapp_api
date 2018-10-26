@@ -1,5 +1,5 @@
 module Types
-  class CustomerAppType < Types::BaseObject
+  class CollectionType < Types::BaseObject
     graphql_name "Collection"
     field :id, Integer, null: false
     field :app_id, Integer, null: false
