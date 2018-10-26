@@ -15,7 +15,7 @@
 
 require 'test_helper'
 
-class Types::CollectionType < ActiveSupport::TestCase
+class Types::CollectionTypeTest < ActiveSupport::TestCase
 
   test "collection is something" do
     assert true
