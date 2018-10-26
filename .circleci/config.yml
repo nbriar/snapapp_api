@@ -43,40 +43,40 @@ jobs:
       # Run the tests
       - run: bundle exec rake
 
-  build:
-    machine: true
-    steps:
-      - checkout
-      - run: echo ${GCLOUD_KEY} > ${HOME}/gcp-key.json
-      - run: echo ${GCLOUD_KEY} > ./gcp-key.json
-      - run: docker build --rm=false -t us.gcr.io/${GCLOUD_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
-      - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
-      - run: gcloud --quiet config set project ${GCLOUD_PROJECT}
-      - run: gcloud docker -- push us.gcr.io/${GCLOUD_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
-
-  deploy:
-    docker:
-      - image: nbriar/ubuntu-circleci
-    steps:
-      - checkout
-      - run: echo ${GCLOUD_KEY} > ${HOME}/gcp-key.json
-      - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
-      - run: gcloud --quiet config set project ${GCLOUD_PROJECT}
-      - run: gcloud --quiet config set compute/zone ${GCLOUD_ZONE}
-      - run: gcloud --quiet container clusters get-credentials ${GCLOUD_K8S_CLUSTER_NAME}
-      - run: ./deploy.sh
+  # build:
+  #   machine: true
+  #   steps:
+  #     - checkout
+  #     - run: echo ${GCLOUD_KEY} > ${HOME}/gcp-key.json
+  #     - run: echo ${GCLOUD_KEY} > ./gcp-key.json
+  #     - run: docker build --rm=false -t us.gcr.io/${GCLOUD_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
+  #     - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+  #     - run: gcloud --quiet config set project ${GCLOUD_PROJECT}
+  #     - run: gcloud docker -- push us.gcr.io/${GCLOUD_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
+  #
+  # deploy:
+  #   docker:
+  #     - image: nbriar/ubuntu-circleci
+  #   steps:
+  #     - checkout
+  #     - run: echo ${GCLOUD_KEY} > ${HOME}/gcp-key.json
+  #     - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+  #     - run: gcloud --quiet config set project ${GCLOUD_PROJECT}
+  #     - run: gcloud --quiet config set compute/zone ${GCLOUD_ZONE}
+  #     - run: gcloud --quiet container clusters get-credentials ${GCLOUD_K8S_CLUSTER_NAME}
+  #     - run: ./deploy.sh
 
 workflows:
   version: 2
-  test-build-and-deploy:
+  test-to-deploy:
     jobs:
       - test
-      - build:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - build
+      # - build:
+      #     requires:
+      #       - test
+      # - deploy:
+      #     requires:
+      #       - build
           # filters:
           #   branches:
           #     only: master
