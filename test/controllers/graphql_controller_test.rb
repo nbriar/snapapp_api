@@ -79,4 +79,21 @@ class GraphqlControllerTest < ActionDispatch::IntegrationTest
     assert body["data"]["deleteCustomerApp"]["customerApp"].present?
     assert body["data"]["deleteCustomerApp"]["errors"].empty?
   end
+
+  test "should update a customer app" do
+    customer_app = CustomerApp.create(name: 'updateable', auth_account_id: @account.id)
+    query_string = "
+    mutation {
+      updateCustomerApp(input:{id: #{customer_app.id}, name: \"new-name\"}) {
+        customerApp {id, name, slug, authAccountId}
+        errors
+      }
+    }"
+
+    post graphql_url, params: {query: query_string}, headers: auth_header
+    body = JSON.parse(response.body)
+
+    assert body["data"]["updateCustomerApp"]["customerApp"]["name"] == "new-name"
+    assert body["data"]["updateCustomerApp"]["errors"].empty?
+  end
 end
