@@ -1,6 +1,8 @@
 module Types
   class CustomerAppType < Types::BaseObject
     graphql_name "CustomerApp"
+
+    field :id, Integer, null: false
     field :name, String, null: false
     field :slug, String, null: false
     field :auth_account_id, Integer, null: false

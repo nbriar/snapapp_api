@@ -26,6 +26,26 @@ class GraphqlControllerTest < ActionDispatch::IntegrationTest
     assert body["data"]["customerApp"]["name"].present?
   end
 
+  test "should return an index of customer apps" do
+    c_app = customer_apps(:one)
+
+    query_string = "
+    {
+      customerApps {
+        name
+        slug
+        authAccountId
+        createdAt
+        updatedAt
+      }
+    }"
+
+    post graphql_url, params: {query: query_string}, headers: auth_header
+    body = JSON.parse(response.body)
+
+    assert body["data"]["customerApps"].first["name"].present?
+  end
+
   test "should create a new customer app" do
 
     query_string = "
@@ -41,5 +61,22 @@ class GraphqlControllerTest < ActionDispatch::IntegrationTest
 
     assert body["data"]["createCustomerApp"]["customerApp"].present?
     assert body["data"]["createCustomerApp"]["errors"].empty?
+  end
+
+  test "should delete a customer app" do
+    deleteable_customer_app = CustomerApp.create(name: 'deleteable', auth_account_id: @account.id)
+    query_string = "
+    mutation {
+      deleteCustomerApp(input:{id: #{deleteable_customer_app.id}}) {
+        customerApp {id, name, slug, authAccountId}
+        errors
+      }
+    }"
+
+    post graphql_url, params: {query: query_string}, headers: auth_header
+    body = JSON.parse(response.body)
+
+    assert body["data"]["deleteCustomerApp"]["customerApp"].present?
+    assert body["data"]["deleteCustomerApp"]["errors"].empty?
   end
 end

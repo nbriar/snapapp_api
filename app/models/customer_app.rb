@@ -18,7 +18,8 @@ class CustomerApp < ApplicationRecord
   belongs_to :account, foreign_key: "auth_account_id", class_name: "Auth::Account"
 
   validates_presence_of :auth_account_id
-
+   validates_uniqueness_of :name, scope: :auth_account_id
+   
   after_initialize :ensure_slug
 
   def self.for_account(acc)
