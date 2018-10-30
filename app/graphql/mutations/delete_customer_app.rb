@@ -9,7 +9,7 @@ module Mutations
 
     def resolve(id:)
       customer_app = CustomerApp.find(id)
-      if customer_app.destroy
+      if customer_app.destroy!
         # Successful creation, return the created object with no errors
         {
           customer_app: customer_app,
@@ -22,6 +22,12 @@ module Mutations
           errors: customer_app.errors.full_messages
         }
       end
+      
+    rescue ActiveRecord::RecordNotFound
+      {
+        customer_app: nil,
+        errors: ["No CustomerApp found with ID: #{id}"]
+      }
     end
   end
 end

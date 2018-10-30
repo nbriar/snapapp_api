@@ -23,6 +23,12 @@ module Mutations
           errors: customer_app.errors.full_messages
         }
       end
+
+    rescue ActiveRecord::RecordNotFound
+      {
+        customer_app: nil,
+        errors: ["No CustomerApp found with ID: #{id}"]
+      }
     end
   end
 end
