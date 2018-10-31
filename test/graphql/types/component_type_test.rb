@@ -53,4 +53,19 @@ class Types::ComponentTypeTest < ActiveSupport::TestCase
     assert results["data"]["component"]["element"] == @component.element
     assert results["data"]["component"]["template"] == @component.template
   end
+
+  test "getting an index of components scoped to the customer app" do
+    query = "
+    {
+      components() {
+        name
+        element
+        template
+      }
+    }"
+
+    results = SnapAppApiSchema.execute(query, context: {customer_app: @customer_app}).to_h
+
+    assert results["data"]["components"].count == 3
+  end
 end

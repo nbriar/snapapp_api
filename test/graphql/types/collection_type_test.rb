@@ -52,4 +52,20 @@ class Types::CollectionTypeTest < ActiveSupport::TestCase
     assert results["data"]["collection"]["name"] == @collection.name
     assert results["data"]["collection"]["appId"] == @collection.app_id.to_i
   end
+
+  test "getting a collection list by customer_app" do
+    query = "
+    {
+      collections() {
+        name
+        appId
+        createdAt
+        updatedAt
+      }
+    }"
+
+    results = SnapAppApiSchema.execute(query, context: {customer_app: @customer_app}).to_h
+
+    assert results["data"]["collections"].count == 1
+  end
 end

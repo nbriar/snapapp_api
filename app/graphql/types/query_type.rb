@@ -7,6 +7,8 @@ module Types
     # Indexes
     field :customer_apps, [CustomerAppType], null: true
     field :pages, [PageType], null: true
+    field :collections, [CollectionType], null: true
+    field :components, [ComponentType], null: true
 
     # Individual Objects by ID
     field :customer_app, CustomerAppType, null: true do
@@ -41,8 +43,16 @@ module Types
       Collection.find(id)
     end
 
+    def collections
+      Collection.for_app(context[:customer_app])
+    end
+
     def component(id:)
       Component.find(id)
+    end
+
+    def components
+      Component.for_app(context[:customer_app])
     end
 
     def page(id:)
@@ -50,7 +60,7 @@ module Types
     end
 
     def pages
-      Pages.for_app()
+      Pages.for_app(context[:customer_app])
     end
   end
 end
