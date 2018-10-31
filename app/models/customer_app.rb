@@ -28,6 +28,14 @@ class CustomerApp < ApplicationRecord
     CustomerApp.where(auth_account_id: acc.id)
   end
 
+  def pages
+    Page.for_app(self)
+  end
+
+  def collections
+    Collection.for_app(self)
+  end
+
   private
   def ensure_slug
     self.slug ||= generate_slug

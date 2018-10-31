@@ -34,7 +34,7 @@ class Component < ApplicationRecord
     active_record_element.as_json.merge(type: active_record_element.class.to_s)
   end
 
-  def element_template
+  def template
     element[:type].constantize.field_definitions
   end
 

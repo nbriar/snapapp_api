@@ -10,7 +10,7 @@
 
 require 'test_helper'
 
-class Types::CollectionTypeTest < ActiveSupport::TestCase
+class Types::ComponentTypeTest < ActiveSupport::TestCase
   setup do
     @user = UserCreator.find_or_create(external_id: external_user_id)
     @account = @user.account
@@ -34,22 +34,23 @@ class Types::CollectionTypeTest < ActiveSupport::TestCase
         },
       ]
     )
+
+    @component = @collection.components.first
   end
 
-  test "can get a collection by ID" do
+  test "getting a component by ID" do
     query = "
     {
-      collection(id: #{@collection.id}) {
+      component(id: #{@component.id}) {
         name
-        appId
-        createdAt
-        updatedAt
+        element
+        template
       }
     }"
 
     results = SnapAppApiSchema.execute(query).to_h
 
-    assert results["data"]["collection"]["name"] == @collection.name
-    assert results["data"]["collection"]["appId"] == @collection.app_id.to_i
+    assert results["data"]["component"]["element"] == @component.element
+    assert results["data"]["component"]["template"] == @component.template
   end
 end

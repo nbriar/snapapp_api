@@ -3,8 +3,12 @@ module Types
     graphql_name "Query"
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
-    field :customer_apps, [CustomerAppType], null: true
 
+    # Indexes
+    field :customer_apps, [CustomerAppType], null: true
+    field :pages, [PageType], null: true
+
+    # Individual Objects by ID
     field :customer_app, CustomerAppType, null: true do
       description "Find a customer_app by ID"
       argument :id, ID, required: true
@@ -15,8 +19,18 @@ module Types
       argument :id, ID, required: true
     end
 
+    field :component, ComponentType, null: true do
+      description "Find a component by ID"
+      argument :id, ID, required: true
+    end
+
+    field :page, PageType, null: true do
+      description "Find a page by ID"
+      argument :id, ID, required: true
+    end
+
     def customer_apps
-      CustomerApp.all
+      CustomerApp.for_account(context[:account])
     end
 
     def customer_app(id:)
@@ -25,6 +39,18 @@ module Types
 
     def collection(id:)
       Collection.find(id)
+    end
+
+    def component(id:)
+      Component.find(id)
+    end
+
+    def page(id:)
+      Page.find(id)
+    end
+
+    def pages
+      Pages.for_app()
     end
   end
 end

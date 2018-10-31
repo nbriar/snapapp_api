@@ -6,7 +6,8 @@ class GraphqlController < PrivateController
     context = {
       # Query context goes here, for example:
       user: active_user,
-      account: active_account
+      account: active_account,
+      customer_app: active_app
     }
 
     result = SnapAppApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
@@ -31,5 +32,11 @@ class GraphqlController < PrivateController
     else
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
+  end
+
+  def active_app
+    @customer_app ||= CustomerApp.find(request.headers['X-APP-ID'])
+  rescue ActiveRecord::RecordNotFound
+    @customer_app = nil
   end
 end
