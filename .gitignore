@@ -23,3 +23,5 @@ coverage/
 doc/
 
 k8s/k8s.config.yml
+
+.env
