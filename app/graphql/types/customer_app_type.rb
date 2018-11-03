@@ -7,6 +7,7 @@ module Types
     field :slug, String, null: false
     field :pages, [Types::PageType], null: false
     field :collections, [Types::CollectionType], null: false
+    field :components, [Types::ComponentType], null: false
     field :auth_account_id, Integer, null: false
     field :updated_at, String, null: true
     field :created_at, String, null: true

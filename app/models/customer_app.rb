@@ -36,6 +36,10 @@ class CustomerApp < ApplicationRecord
     Collection.for_app(self)
   end
 
+  def components
+    Component.for_app(self)
+  end
+
   private
   def ensure_slug
     self.slug ||= generate_slug
