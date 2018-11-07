@@ -23,6 +23,8 @@ class Page < ApplicationRecord
   validates_uniqueness_of :title, scope: :customer_app_id
   validates_uniqueness_of :route, scope: :customer_app_id
 
+  before_validation :generate_route
+
   def self.for_app(app)
     Page.where(customer_app_id: app.id)
   end
@@ -41,5 +43,9 @@ class Page < ApplicationRecord
 
   def remove_collection(collection)
     self.collections.delete(collection)
+  end
+
+  def generate_route
+    self.route ||= title.downcase.gsub(" ", "-")
   end
 end

@@ -9,9 +9,7 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(title:, app_id:)
-
-      route = title.downcase.gsub(" ", "-")
-      page = Page.new(title: title, route: route, customer_app_id: app_id)
+      page = Page.new(title: title, customer_app_id: app_id)
 
       if page.save
         # Successful creation, return the created object with no errors
