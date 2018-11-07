@@ -35,7 +35,8 @@ class GraphqlController < PrivateController
   end
 
   def active_app
-    @customer_app ||= CustomerApp.find(request.headers['X-APP-ID'])
+    app_id = request.headers['X-APP-ID'] || params[:appId]
+    @customer_app ||= CustomerApp.find(app_id)
   rescue ActiveRecord::RecordNotFound
     @customer_app = nil
   end

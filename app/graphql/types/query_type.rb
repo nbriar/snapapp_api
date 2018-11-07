@@ -60,7 +60,7 @@ module Types
     end
 
     def pages
-      Pages.for_app(context[:customer_app])
+      Page.for_app(context[:customer_app])
     end
   end
 end

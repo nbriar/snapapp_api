@@ -1,19 +1,16 @@
 module Mutations
-  class CreatePage < Mutations::BaseMutation
+  class UpdatePage < Mutations::BaseMutation
     null true
 
+    argument :id, Integer, required: true
     argument :title, String, required: true
-    argument :app_id, Integer, required: true
 
     field :page, Types::PageType, null: true
     field :errors, [String], null: false
 
-    def resolve(title:, app_id:)
-
-      route = title.downcase.gsub(" ", "-")
-      page = Page.new(title: title, route: route, customer_app_id: app_id)
-
-      if page.save
+    def resolve(id:, title:)
+      page = Page.find(id)
+      if page.update(title: title)
         # Successful creation, return the created object with no errors
         {
           page: page,
@@ -26,6 +23,12 @@ module Mutations
           errors: page.errors.full_messages
         }
       end
+
+    rescue ActiveRecord::RecordNotFound
+      {
+        page: nil,
+        errors: ["No Page found with ID: #{id}"]
+      }
     end
   end
 end
