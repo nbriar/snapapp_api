@@ -38,9 +38,9 @@ class Mutations::UpdateComponentTest < ActiveSupport::TestCase
     variables = {id: @collection.components.first.id, name: "Updated", element: element}
     results = SnapAppApiSchema.execute(query, variables: variables).to_h
 
-    assert results["data"]["updateComponent"]["component"]["name"] == variables[:name]
-    assert results["data"]["updateComponent"]["component"]["element"]["text"] == element[:text]
-    assert results["data"]["updateComponent"]["errors"].blank?
+    assert_equal variables[:name], results["data"]["updateComponent"]["component"]["name"]
+    assert_equal element[:text], results["data"]["updateComponent"]["component"]["element"]["text"]
+    assert_empty results["data"]["updateComponent"]["errors"]
   end
 
   test "trying to update a component without an id fails" do
@@ -54,7 +54,7 @@ class Mutations::UpdateComponentTest < ActiveSupport::TestCase
     "
     results = SnapAppApiSchema.execute(query).to_h
 
-    assert results["errors"].present?
+    refute_empty results["errors"]
   end
 
   test "trying to update a component without a name works" do
@@ -70,9 +70,9 @@ class Mutations::UpdateComponentTest < ActiveSupport::TestCase
     variables = {id: @collection.components.last.id, element: element}
     results = SnapAppApiSchema.execute(query, variables: variables).to_h
 
-    assert results["data"]["updateComponent"]["component"]["name"] == @collection.components.last.name
-    assert results["data"]["updateComponent"]["component"]["element"]["text"] == element[:text]
-    assert results["data"]["updateComponent"]["errors"].blank?
+    assert_equal @collection.components.last.name, results["data"]["updateComponent"]["component"]["name"]
+    assert_equal element[:text], results["data"]["updateComponent"]["component"]["element"]["text"]
+    assert_empty results["data"]["updateComponent"]["errors"]
   end
 
   test "must send either name or element to update" do
@@ -87,7 +87,7 @@ class Mutations::UpdateComponentTest < ActiveSupport::TestCase
     variables = {id: @collection.components.last.id}
     results = SnapAppApiSchema.execute(query, variables: variables).to_h
 
-    assert results["data"]["updateComponent"]["errors"].include? "Must supply either name or element for update"
+    assert_includes results["data"]["updateComponent"]["errors"], "Must supply either name or element for update"
   end
 
 end
