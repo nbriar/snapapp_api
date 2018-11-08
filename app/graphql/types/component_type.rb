@@ -4,7 +4,7 @@ module Types
 
     field :id, Integer, null: false
     field :app_id, Integer, null: false
-    field :collection_id, Integer, null: false
+    field :collection_id, Integer, null: true
     field :name, String, null: false
     field :element, Types::ElementType, null: false
     field :template, Types::ElementTemplateType, null: false

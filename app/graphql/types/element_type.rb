@@ -1,6 +1,6 @@
 module Types
   class ElementType < Types::BaseScalar
-    description "A hash for the specific element type"
+    description "A hash for the element type"
 
     def self.coerce_input(input_value, context)
       input_value

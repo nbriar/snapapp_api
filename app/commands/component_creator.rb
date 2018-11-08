@@ -2,12 +2,19 @@ class ComponentCreator
 
   def self.create(app_id:, name:, element: {}, collection_id: nil)
     element_type = element[:type]
+
     return false unless Template.available_elements.include? element_type
 
     element.delete(:type)
 
     element = element_type.constantize.create(element)
-    Component.create(app_id: app_id, name: name, collection_id: collection_id, element_id: element.id, element_type: element_type)
+    Component.create(
+      app_id: app_id,
+      name: name,
+      collection_id: collection_id,
+      element_id: element.id,
+      element_type: element_type
+    )
   end
 
   def self.update(id:, name: nil, element: nil)
@@ -22,6 +29,8 @@ class ComponentCreator
       component.update(name: name)
     end
 
+    # We need to do this since we are updating a related element but
+    # the relationship is not managed through Active Record
     component.reload
   end
 
