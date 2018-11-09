@@ -3,8 +3,10 @@ class CollectionCreator
     collection = Collection.create(name: name, app_id: app_id)
 
     components.each do |component|
-      component = ComponentCreator.create(app_id: app_id, name: "#{name}:#{component[:name]}", element: component[:element])
-      collection.components << component
+      c = component.to_h.symbolize_keys
+
+      new_component = ComponentCreator.create(app_id: app_id, name: "#{name}:#{c[:name]}", element: c[:element])
+      collection.components << new_component
     end
 
     collection
@@ -37,6 +39,6 @@ class CollectionCreator
     collection = Collection.find id
     page = Page.find page_id
 
-    page.collections.delete collection 
+    page.collections.delete collection
   end
 end

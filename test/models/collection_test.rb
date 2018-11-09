@@ -36,7 +36,7 @@ class CollectionTest < ActiveSupport::TestCase
         {
           name: "some name3",
           element: {type: "Title", size: 3, text: "Auto Created Component3"}
-        },
+        }
       ]
     )
   end

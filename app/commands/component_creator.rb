@@ -1,6 +1,8 @@
 class ComponentCreator
 
   def self.create(app_id:, name:, element: {}, collection_id: nil)
+    element = element.symbolize_keys
+    
     element_type = element[:type]
 
     return false unless Template.available_elements.include? element_type

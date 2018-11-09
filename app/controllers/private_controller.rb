@@ -1,5 +1,5 @@
 class PrivateController < ApplicationController
-  include Secured
+  # include Secured
 
   attr_accessor :active_user, :active_account
 
