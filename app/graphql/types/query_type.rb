@@ -9,6 +9,8 @@ module Types
     field :pages, [PageType], null: true
     field :collections, [CollectionType], null: true
     field :components, [ComponentType], null: true
+    field :templates, [TemplateType], null: true
+    field :element_types, [String], null: true
 
     # Individual Objects by ID
     field :customer_app, CustomerAppType, null: true do
@@ -28,6 +30,11 @@ module Types
 
     field :page, PageType, null: true do
       description "Find a page by ID"
+      argument :id, ID, required: true
+    end
+
+    field :template, TemplateType, null: true do
+      description "Find a template by ID"
       argument :id, ID, required: true
     end
 
@@ -62,5 +69,18 @@ module Types
     def pages
       Page.for_app(context[:customer_app])
     end
+
+    def templates
+      Template.includes(:template_elements).all
+    end
+
+    def template(id:)
+      Template.includes(:template_elements).find id
+    end
+
+    def element_types
+      Template.available_elements
+    end
+
   end
 end
