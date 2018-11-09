@@ -27,6 +27,7 @@ class CollectionCreator
     end
 
     collection.destroy
+    collection
   end
 
   def self.add_to_page(id:, page_id:)

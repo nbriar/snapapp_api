@@ -11,7 +11,7 @@ module Types
 
     field :create_collection, mutation: Mutations::CreateCollection
     field :update_collection, mutation: Mutations::UpdateCollection
-    # field :delete_component, mutation: Mutations::DeleteComponent
+    field :delete_collection, mutation: Mutations::DeleteCollection
 
     field :create_component, mutation: Mutations::CreateComponent
     field :update_component, mutation: Mutations::UpdateComponent
