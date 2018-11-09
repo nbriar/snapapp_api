@@ -10,7 +10,7 @@ module Types
     field :delete_page, mutation: Mutations::DeletePage
 
     field :create_collection, mutation: Mutations::CreateCollection
-    # field :update_component, mutation: Mutations::UpdateComponent
+    field :update_collection, mutation: Mutations::UpdateCollection
     # field :delete_component, mutation: Mutations::DeleteComponent
 
     field :create_component, mutation: Mutations::CreateComponent

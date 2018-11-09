@@ -15,6 +15,7 @@ class CollectionCreator
   def self.update(id:, name:)
     collection = Collection.find id
     collection.update(name: name)
+    collection
   end
 
   def self.delete(id:)
